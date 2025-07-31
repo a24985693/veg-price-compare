@@ -48,6 +48,8 @@ searchButton.addEventListener('click', () => {
   if(cropValue) {
     searchResult.classList.remove('display-none');
     searchResult.innerHTML = `查看「${cropValue}」的比價結果`;
+  } else {
+    searchResult.classList.add('display-none');
   }
 
   // 搜尋並篩選資料
