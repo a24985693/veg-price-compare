@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>農產品比價網</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/all.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">
+      農產品比價網
+      <i class="fa-solid fa-leaf"></i>
+    </h1>
+    <div class="wrap">
+      <ul class="tab" id="tab">
+        <li id="tabVegetables">蔬果</li>
+        <li id="tabFruits">水果</li>
+        <li id="tabFlowers">花卉</li>
+      </ul>
+      <div class="search-group">
+        <div class="input-group">
+          <span>作物名稱</span>
+          <input type="text" id="searchCrop" placeholder="請輸入作物名稱">
+        </div>
+        <button type="button" class="search-button" id="searchButton">搜尋</button>
+      </div>
+      <div class="tool-bar">
+        <p id="searchResult" class="display-none"></p>
+        <select class="sort-direction" id="sortDirection">
+          <option value="sort" selected>排序</option>
+          <option value="priceUp">由上價排序</option>
+          <option value="priceMiddle">由中價排序</option>
+          <option value="priceDown">由下價排序</option>
+          <option value="average">由平均價排序</option>
+          <option value="volume">由交易量排序</option>
+        </select>
+      </div>
+      <div class="table-wrapper">
+        <table class="crop-table">
+          <thead>
+            <tr>
+              <th>作物名稱</th>
+              <th>市場名稱</th>
+              <th>上價</th>
+              <th>中價</th>
+              <th>下價</th>
+              <th>平均價</th>
+              <th>交易量</th>
+            </tr>
+          </thead>
+          <tbody id="tableResult">
+            <tr>
+              <td colspan="7">請輸入並搜尋想比價的作物名稱^＿^</td>
+            </tr>
+          </tbody>
+          <span class=""></span>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="https://kit.fontawesome.com/a9364419c2.js" crossorigin="anonymous"></script>
+  <script src="./all.js"></script>
+</body>
+</html>
