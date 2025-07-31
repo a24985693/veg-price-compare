@@ -16,6 +16,13 @@ let searchData = [];
 // 排序值
 let selectedValue;
 
+// tab 各種類代碼
+const typeValue = {
+  tabVegetables: 'N04',
+  tabFruits: 'N05',
+  tabFlowers: 'N03',
+};
+
 // option 對應的值
 const optionValue = {
   priceUp: '上價',
@@ -76,14 +83,8 @@ tab.addEventListener('click', e => {
     item.classList.toggle('active', e.target.id === item.id);
   })
 
-  // 各種類代碼
-  if(e.target.id === 'tabFlowers') {
-    tabType = 'N03';
-  } else if(e.target.id === 'tabVegetables') {
-    tabType = 'N04';
-  } else  if(e.target.id === 'tabFruits') {
-    tabType = 'N05';
-  }
+  // 各種類代碼
+  tabType = typeValue[e.target.id];
 })
 
 // 渲染搜尋結果
