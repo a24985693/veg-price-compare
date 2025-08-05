@@ -16,11 +16,13 @@ let searchData = [];
 // 排序值
 let selectedValue;
 
+let cropValue
+
 // tab 各種類代碼
 const typeValue = {
   tabVegetables: 'N04',
   tabFruits: 'N05',
-  tabFlowers: 'N03',
+  tabFlowers: 'N06',
 };
 
 // option 對應的值
@@ -38,6 +40,7 @@ function getData() {
     .then(res => res.json())
     .then(data => {
       cropData = data;
+      renderData(cropData);
     })
     .catch(err => {
       alert('出現錯誤，請稍後嘗試');
@@ -45,54 +48,12 @@ function getData() {
 }
 getData();
 
-// 搜尋按鈕
-searchButton.addEventListener('click', () => {
-  const searchResult = document.querySelector('#searchResult');
-  const cropValue = searchCrop.value.trim();
-
-  searchCrop.value = '';
-
-  if(cropValue) {
-    searchResult.classList.remove('display-none');
-    searchResult.innerHTML = `查看「${cropValue}」的比價結果`;
-  } else {
-    searchResult.classList.add('display-none');
-  }
-
-  // 搜尋並篩選資料
-  searchData = cropData.filter(item => {
-    let isTypeMatch = (item.種類代碼 === tabType) || (tabType === '');
-    let cropName = item.作物名稱 || '';
-    let isNameMatch = cropName.includes(cropValue);
-
-    return isTypeMatch && isNameMatch;
-  })
-
-  if(selectedValue) {
-    sortData();
-  }else {
-    renderResult();
-  }
-})
-
-// 點擊 tab 切換種類
-tab.addEventListener('click', e => {
-  const tabItems = document.querySelectorAll('li');
-
-  tabItems.forEach(item => {
-    item.classList.toggle('active', e.target.id === item.id);
-  })
-
-  // 各種類代碼
-  tabType = typeValue[e.target.id];
-})
-
 // 渲染搜尋結果
-function renderResult() {
+function renderData(data) {
   let str = '';
 
-  if(searchData.length != 0) {
-    searchData.forEach(item => {
+  if(data.length != 0) {
+    data.forEach(item => {
       str += `
       <tr>
         <td>${item.作物名稱}</td>
@@ -113,22 +74,61 @@ function renderResult() {
   tableResult.innerHTML = str;
 }
 
+// 搜尋、分類、排序資料
+function filterAndSort(type = '', cropValue = '', sortType = '') {
+  let filtered = cropData.filter(item => {
+    let isTypeMatch = item.種類代碼 === type;
+    let cropName = item.作物名稱 || '';
+    let isNameMatch = cropName.includes(cropValue);
+    return isTypeMatch && isNameMatch;
+  });
+
+  if(sortType) {
+    filtered.sort((a, b) => a[sortType] - b[sortType]);
+  }
+
+  return filtered;
+}
+
+// 搜尋按鈕
+searchButton.addEventListener('click', () => {
+  const searchMessage = document.querySelector('#searchMessage');
+  cropValue = searchCrop.value.trim();
+
+  if(!cropValue) {
+    alert('請輸入作物名稱');
+    return;
+  }
+
+  searchData = filterAndSort(tabType, cropValue, selectedValue);
+  renderData(searchData);
+
+  searchMessage.classList.remove('display-none');
+  searchMessage.innerHTML = `查看「${cropValue}」的比價結果`;
+
+  searchCrop.value = '';
+})
+
+
+// 點擊 tab 切換種類
+tab.addEventListener('click', e => {
+  if(e.target.tagName !== 'LI') return;
+
+  const tabItems = document.querySelectorAll('li');
+  tabItems.forEach(item => {
+    item.classList.toggle('active', e.target.id === item.id);
+  })
+
+  // 各種類代碼
+  tabType = typeValue[e.target.id];
+  searchData = filterAndSort(tabType, cropValue, selectedValue);
+  renderData(searchData);
+})
+
+
 // 選擇排序
 sortDirection.addEventListener('change', function() {
   selectedValue = optionValue[this.value];
-  
-  if(searchData.length != 0) {
-    sortData();
-  }
+  searchData = filterAndSort(tabType, cropValue, selectedValue);
+  renderData(searchData);
 })
-
-// 排序資料
-function sortData() {
-  searchData.sort((a, b) => {
-    return  a[selectedValue] - b[selectedValue];
-  });
-
-  if(searchData.length != 0) {
-    renderResult();
-  }
-}
