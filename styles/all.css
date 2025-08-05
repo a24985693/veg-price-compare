@@ -216,4 +216,20 @@ body {
 }
 .crop-table tr {
   border-bottom: 2px solid #D9D9D9;
+}
+.crop-table .sort-advanced {
+  position: relative;
+  padding-right: 15px;
+}
+.crop-table .fa-caret-up, .crop-table .fa-caret-down {
+  position: absolute;
+  cursor: pointer;
+}
+.crop-table .fa-caret-up {
+  top: -2px;
+  right: 0px;
+}
+.crop-table .fa-caret-down {
+  top: 9px;
+  right: 0px;
 }/*# sourceMappingURL=all.css.map */

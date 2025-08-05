@@ -41,15 +41,53 @@
       </div>
       <div class="table-wrapper">
         <table class="crop-table">
-          <thead>
+          <thead id="thead">
             <tr>
               <th>作物名稱</th>
               <th>市場名稱</th>
-              <th>上價</th>
-              <th>中價</th>
-              <th>下價</th>
-              <th>平均價</th>
-              <th>交易量</th>
+              <th>
+                <div class="sort-advanced">上價
+                  <span>
+                    <i data-price="priceUp" data-sort="up" class="fas fa-caret-up"></i>
+                    <i data-price="priceUp" data-sort="down" class="fas fa-caret-down"></i>
+                  </span>
+                </div>
+              </th>
+              <th>
+                <div class="sort-advanced">中價
+                  <span>
+                    <i data-price="priceMiddle" data-sort="up" class="fas fa-caret-up"></i>
+                    <i data-price="priceMiddle" data-sort="down" class="fas fa-caret-down"></i>
+                  </span>
+                </div>
+              </th>
+              <th>
+                <div class="sort-advanced">
+                  下價
+                  <span>
+                    <i data-price="priceDown" data-sort="up" class="fas fa-caret-up"></i>
+                    <i data-price="priceDown" data-sort="down" class="fas fa-caret-down"></i>
+                  </span>
+                </div>
+              </th>
+              <th>
+                <div class="sort-advanced">
+                  平均價
+                  <span>
+                    <i data-price="average" data-sort="up" class="fas fa-caret-up"></i>
+                    <i data-price="average" data-sort="down" class="fas fa-caret-down"></i>
+                  </span>
+                </div>
+              </th>
+              <th>
+                <div class="sort-advanced">
+                  交易量
+                  <span>
+                    <i data-price="volume" data-sort="up" class="fas fa-caret-up"></i>
+                    <i data-price="volume" data-sort="down" class="fas fa-caret-down"></i>
+                  </span>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody id="tableResult">

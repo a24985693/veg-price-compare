@@ -3,6 +3,7 @@ const searchButton = document.querySelector('#searchButton');
 const tab = document.querySelector('#tab');
 const tableResult = document.querySelector('#tableResult');
 const sortDirection = document.querySelector('#sortDirection');
+const thead = document.querySelector('#thead');
 
 // 點選種類，空字串代表不限種類
 let tabType = '';
@@ -40,6 +41,7 @@ function getData() {
     .then(res => res.json())
     .then(data => {
       cropData = data;
+      searchData = [...cropData];
       renderData(cropData);
     })
     .catch(err => {
@@ -75,19 +77,28 @@ function renderData(data) {
 }
 
 // 搜尋、分類、排序資料
-function filterAndSort(type = '', cropValue = '', sortType = '') {
+function filterAndSort(tabType = '', cropValue = '', sortType = '') {
   let filtered = cropData.filter(item => {
-    let isTypeMatch = item.種類代碼 === type;
+    let isTypeMatch = (item.種類代碼 === tabType) || (tabType === '');
     let cropName = item.作物名稱 || '';
     let isNameMatch = cropName.includes(cropValue);
     return isTypeMatch && isNameMatch;
   });
 
   if(sortType) {
-    filtered.sort((a, b) => a[sortType] - b[sortType]);
+    sortData(filtered, sortType);
   }
-
   return filtered;
+}
+
+// sort
+function sortData(filtered, sortType, direction = 'up') {
+  let isUp = direction === 'up';
+  if(isUp) {
+    return filtered.sort((a, b) => a[sortType] - b[sortType]);
+  } else {
+    return filtered.sort((a, b) => b[sortType] - a[sortType]);
+  }
 }
 
 // 搜尋按鈕
@@ -131,4 +142,14 @@ sortDirection.addEventListener('change', function() {
   selectedValue = optionValue[this.value];
   searchData = filterAndSort(tabType, cropValue, selectedValue);
   renderData(searchData);
+})
+
+// 表單表頭的箭頭排序
+thead.addEventListener('click', e => {
+  if(e.target.tagName === 'I') {
+    selectedValue = optionValue[e.target.dataset.price];
+    let direction = e.target.dataset.sort;
+    searchData = sortData(searchData, selectedValue, direction);
+    renderData(searchData);
+  }
 })

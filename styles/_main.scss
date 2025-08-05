@@ -162,4 +162,24 @@
   tr {
     border-bottom: 2px solid variables.$gray;
   }
+
+  .sort-advanced {
+    position: relative;
+    padding-right: 15px;
+  }
+
+  .fa-caret-up, .fa-caret-down {
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .fa-caret-up {
+    top: -2px;
+    right: 0px;
+  }
+
+  .fa-caret-down {
+    top: 9px;
+    right: 0px;
+  }
 }
