@@ -1,6 +1,7 @@
 # 農產品比價網
 
 這是一個查詢農產品價格以及分類和排序功能。
+<img width="1913" height="898" alt="image" src="https://github.com/user-attachments/assets/9df9f617-58d3-4917-ba9c-4f36ecf10dce" />
 
 
 ## Demo
